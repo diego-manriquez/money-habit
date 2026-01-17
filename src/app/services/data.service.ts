@@ -198,7 +198,9 @@ export class DataService {
     // Initialize default people if none exist
     if (this.people().length === 0) {
       const defaultPeople: Omit<Person, 'id'>[] = [
-        { name: 'Yo', color: '#3498db' }
+        { name: 'Diego', color: '#3498db' },
+        { name: 'Erika', color: '#e74c3c' },
+        { name: 'Familia', color: '#27ae60' }
       ];
       defaultPeople.forEach(person => this.addPerson(person));
     }

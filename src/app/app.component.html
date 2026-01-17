@@ -8,6 +8,11 @@
     </div>
   </header>
 
+  <!-- Overlay para cerrar el menú en móvil -->
+  @if (menuOpen) {
+    <div class="menu-overlay" (click)="closeMenu()"></div>
+  }
+
   <nav class="app-nav" [class.open]="menuOpen">
     <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">
       <span class="nav-icon">📊</span>
