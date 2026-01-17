@@ -1,0 +1,83 @@
+<div class="categories-manager">
+  <div class="header">
+    <h2>Categorías</h2>
+    <button class="btn-add" (click)="openForm()">+ Nueva Categoría</button>
+  </div>
+
+  <div class="categories-grid">
+    @for (category of dataService.categories(); track category.id) {
+      <div class="category-card" [style.border-color]="category.color">
+        <div class="category-header">
+          <span class="category-icon">{{ category.icon }}</span>
+          <div class="category-actions">
+            <button class="btn-icon" (click)="openForm(category)">✏️</button>
+            <button class="btn-icon" (click)="deleteCategory(category.id)">🗑️</button>
+          </div>
+        </div>
+        <h3>{{ category.name }}</h3>
+      </div>
+    }
+  </div>
+
+  @if (showForm()) {
+    <div class="modal-overlay" (click)="closeForm()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>{{ editingId() ? 'Editar' : 'Nueva' }} Categoría</h3>
+          <button class="btn-close" (click)="closeForm()">✕</button>
+        </div>
+
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input 
+              type="text" 
+              id="name" 
+              [value]="formData().name"
+              (input)="updateField('name', $any($event.target).value)"
+              placeholder="Ej: Comida, Ropa..."
+              required>
+          </div>
+
+          <div class="form-group">
+            <label>Icono</label>
+            <div class="icon-selector">
+              @for (icon of availableIcons; track icon) {
+                <button 
+                  type="button"
+                  class="icon-option"
+                  [class.selected]="formData().icon === icon"
+                  (click)="updateField('icon', icon)">
+                  {{ icon }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Color</label>
+            <div class="color-selector">
+              @for (color of availableColors; track color) {
+                <button 
+                  type="button"
+                  class="color-option"
+                  [style.background-color]="color"
+                  [class.selected]="formData().color === color"
+                  (click)="updateField('color', color)">
+                  @if (formData().color === color) { ✓ }
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel" (click)="closeForm()">Cancelar</button>
+            <button type="submit" class="btn-submit">
+              {{ editingId() ? 'Guardar' : 'Crear' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

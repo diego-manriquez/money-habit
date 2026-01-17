@@ -1,0 +1,124 @@
+<div class="statistics-container">
+  <div class="header">
+    <h2>Estadísticas</h2>
+    <div class="period-filter">
+      <button 
+        [class.active]="currentPeriod().period === 'week'"
+        (click)="setPeriod('week')">
+        Semana
+      </button>
+      <button 
+        [class.active]="currentPeriod().period === 'month'"
+        (click)="setPeriod('month')">
+        Mes
+      </button>
+      <button 
+        [class.active]="currentPeriod().period === 'year'"
+        (click)="setPeriod('year')">
+        Año
+      </button>
+      <button 
+        [class.active]="currentPeriod().period === 'all'"
+        (click)="setPeriod('all')">
+        Todo
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+    <div class="summary-card income">
+      <div class="summary-icon">📈</div>
+      <div class="summary-info">
+        <h3>Ingresos</h3>
+        <p class="amount">${{ formatAmount(statistics().totalIncome) }}</p>
+      </div>
+    </div>
+
+    <div class="summary-card expense">
+      <div class="summary-icon">📉</div>
+      <div class="summary-info">
+        <h3>Gastos</h3>
+        <p class="amount">${{ formatAmount(statistics().totalExpenses) }}</p>
+      </div>
+    </div>
+
+    <div class="summary-card balance" [class.negative]="statistics().balance < 0">
+      <div class="summary-icon">💰</div>
+      <div class="summary-info">
+        <h3>Balance</h3>
+        <p class="amount">${{ formatAmount(statistics().balance) }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories Breakdown -->
+  <div class="stats-card">
+    <h3>Gastos por Categoría</h3>
+    @if (categoryBreakdown().length === 0) {
+      <p class="empty-message">No hay gastos registrados en este período</p>
+    } @else {
+      <div class="breakdown-list">
+        @for (item of categoryBreakdown(); track item.id) {
+          <div class="breakdown-item">
+            <div class="breakdown-header">
+              <span class="category-label">
+                <span class="category-icon">{{ item.icon }}</span>
+                {{ item.name }}
+              </span>
+              <span class="category-amount">${{ formatAmount(item.amount) }}</span>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                [style.width.%]="item.percentage"
+                [style.background-color]="item.color">
+              </div>
+            </div>
+            <div class="breakdown-footer">
+              <span class="percentage">{{ item.percentage.toFixed(1) }}%</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- People Breakdown -->
+  <div class="stats-card">
+    <h3>Resumen por Persona</h3>
+    @if (personBreakdown().length === 0) {
+      <p class="empty-message">No hay transacciones registradas en este período</p>
+    } @else {
+      <div class="people-breakdown">
+        @for (person of personBreakdown(); track person.id) {
+          <div class="person-stats-card">
+            <div class="person-header">
+              <div class="person-avatar" [style.background-color]="person.color">
+                {{ person.name.charAt(0).toUpperCase() }}
+              </div>
+              <h4>{{ person.name }}</h4>
+            </div>
+            
+            <div class="person-stats">
+              <div class="stat-row income-row">
+                <span class="stat-label">Ingresos</span>
+                <span class="stat-value income">${{ formatAmount(person.income) }}</span>
+              </div>
+              <div class="stat-row expense-row">
+                <span class="stat-label">Gastos</span>
+                <span class="stat-value expense">${{ formatAmount(person.expenses) }}</span>
+              </div>
+              <div class="stat-row balance-row">
+                <span class="stat-label">Balance</span>
+                <span class="stat-value" [class.negative]="person.balance < 0">
+                  ${{ formatAmount(person.balance) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

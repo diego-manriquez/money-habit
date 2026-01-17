@@ -1,0 +1,63 @@
+<div class="transaction-list-card">
+  <div class="header">
+    <h2>Transacciones</h2>
+    <div class="period-filter">
+      <button 
+        [class.active]="currentFilter().period === 'week'"
+        (click)="setPeriod('week')">
+        Semana
+      </button>
+      <button 
+        [class.active]="currentFilter().period === 'month'"
+        (click)="setPeriod('month')">
+        Mes
+      </button>
+      <button 
+        [class.active]="currentFilter().period === 'year'"
+        (click)="setPeriod('year')">
+        Año
+      </button>
+      <button 
+        [class.active]="currentFilter().period === 'all'"
+        (click)="setPeriod('all')">
+        Todas
+      </button>
+    </div>
+  </div>
+
+  <div class="transactions-container">
+    @if (filteredTransactions().length === 0) {
+      <div class="empty-state">
+        <p>📋 No hay transacciones para mostrar</p>
+        <small>Agrega tu primera transacción usando el formulario</small>
+      </div>
+    } @else {
+      @for (transaction of filteredTransactions(); track transaction.id) {
+        <div class="transaction-card" [class.income]="transaction.type === 'income'">
+          <div class="transaction-header">
+            <div class="transaction-info">
+              <h3>{{ transaction.description }}</h3>
+              <div class="transaction-meta">
+                <span class="category">{{ getCategoryName(transaction.categoryId) }}</span>
+                <span class="separator">•</span>
+                <span class="date">{{ formatDate(transaction.date) }}</span>
+              </div>
+            </div>
+            <button class="btn-delete" (click)="deleteTransaction(transaction.id)">
+              🗑️
+            </button>
+          </div>
+          
+          <div class="transaction-footer">
+            <div class="person-badge" [style.background-color]="getPersonColor(transaction.personId)">
+              {{ getPersonName(transaction.personId) }}
+            </div>
+            <div class="amount" [class.income-amount]="transaction.type === 'income'">
+              {{ transaction.type === 'income' ? '+' : '-' }} ${{ formatAmount(transaction.amount) }}
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>
