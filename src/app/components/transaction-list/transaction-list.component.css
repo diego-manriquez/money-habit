@@ -84,6 +84,11 @@ h2 {
   border-left-color: #27ae60;
 }
 
+.transaction-card.editing {
+  border-color: #3498db;
+  background: #f8f9fa;
+}
+
 .transaction-header {
   display: flex;
   justify-content: space-between;
@@ -99,6 +104,98 @@ h2 {
   margin: 0 0 8px 0;
   color: #2c3e50;
   font-size: 18px;
+}
+
+.transaction-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit,
+.btn-delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  padding: 4px 8px;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Edit Mode Styles */
+.edit-mode {
+  padding: 16px;
+}
+
+.edit-field {
+  margin-bottom: 16px;
+}
+
+.edit-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: #34495e;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.edit-field input,
+.edit-field select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.edit-field input:focus,
+.edit-field select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-save,
+.btn-cancel {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-save {
+  background: #27ae60;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #229954;
+}
+
+.btn-cancel {
+  background: #e0e0e0;
+  color: #7f8c8d;
+}
+
+.btn-cancel:hover {
+  background: #bdc3c7;
 }
 
 .transaction-meta {

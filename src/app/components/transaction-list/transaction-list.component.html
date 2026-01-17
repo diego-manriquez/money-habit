@@ -33,29 +33,66 @@
       </div>
     } @else {
       @for (transaction of filteredTransactions(); track transaction.id) {
-        <div class="transaction-card" [class.income]="transaction.type === 'income'">
-          <div class="transaction-header">
-            <div class="transaction-info">
-              <h3>{{ transaction.description }}</h3>
-              <div class="transaction-meta">
-                <span class="category">{{ getCategoryName(transaction.categoryId) }}</span>
-                <span class="separator">•</span>
-                <span class="date">{{ formatDate(transaction.date) }}</span>
+        <div class="transaction-card" [class.income]="transaction.type === 'income'" [class.editing]="editingId() === transaction.id">
+          @if (editingId() === transaction.id) {
+            <!-- Edit Mode -->
+            <div class="edit-mode">
+              <div class="edit-field">
+                <label>Descripción</label>
+                <input 
+                  type="text"
+                  [value]="editForm().description"
+                  (input)="updateEditField('description', $any($event.target).value)">
+              </div>
+              <div class="edit-field">
+                <label>Monto</label>
+                <input 
+                  type="number"
+                  [value]="editForm().amount"
+                  (input)="updateEditField('amount', +$any($event.target).value)"
+                  step="0.01">
+              </div>
+              <div class="edit-field">
+                <label>Categoría</label>
+                <select 
+                  [value]="editForm().categoryId"
+                  (change)="updateEditField('categoryId', $any($event.target).value)">
+                  @for (category of dataService.categories(); track category.id) {
+                    <option [value]="category.id">{{ category.icon }} {{ category.name }}</option>
+                  }
+                </select>
+              </div>
+              <div class="edit-actions">
+                <button class="btn-save" (click)="saveEdit()">💾 Guardar</button>
+                <button class="btn-cancel" (click)="cancelEdit()">✕ Cancelar</button>
               </div>
             </div>
-            <button class="btn-delete" (click)="deleteTransaction(transaction.id)">
-              🗑️
-            </button>
-          </div>
-          
-          <div class="transaction-footer">
-            <div class="person-badge" [style.background-color]="getPersonColor(transaction.personId)">
-              {{ getPersonName(transaction.personId) }}
+          } @else {
+            <!-- View Mode -->
+            <div class="transaction-header">
+              <div class="transaction-info">
+                <h3>{{ transaction.description }}</h3>
+                <div class="transaction-meta">
+                  <span class="category">{{ getCategoryName(transaction.categoryId) }}</span>
+                  <span class="separator">•</span>
+                  <span class="date">{{ formatDate(transaction.date) }}</span>
+                </div>
+              </div>
+              <div class="transaction-actions">
+                <button class="btn-edit" (click)="startEdit(transaction)">✏️</button>
+                <button class="btn-delete" (click)="deleteTransaction(transaction.id)">🗑️</button>
+              </div>
             </div>
-            <div class="amount" [class.income-amount]="transaction.type === 'income'">
-              {{ transaction.type === 'income' ? '+' : '-' }} ${{ formatAmount(transaction.amount) }}
+            
+            <div class="transaction-footer">
+              <div class="person-badge" [style.background-color]="getPersonColor(transaction.personId)">
+                {{ getPersonName(transaction.personId) }}
+              </div>
+              <div class="amount" [class.income-amount]="transaction.type === 'income'">
+                {{ transaction.type === 'income' ? '+' : '-' }} ${{ formatAmount(transaction.amount) }}
+              </div>
             </div>
-          </div>
+          }
         </div>
       }
     }

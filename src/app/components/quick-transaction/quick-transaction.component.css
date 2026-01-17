@@ -1,0 +1,266 @@
+.quick-transaction-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  font-size: 24px;
+  text-align: center;
+}
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Type Chips */
+.type-chips {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.type-chip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border: 3px solid #e0e0e0;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: #7f8c8d;
+}
+
+.type-chip .chip-icon {
+  font-size: 24px;
+}
+
+.type-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.type-chip.active.expense {
+  background: #e74c3c;
+  border-color: #e74c3c;
+  color: white;
+}
+
+.type-chip.active.income {
+  background: #27ae60;
+  border-color: #27ae60;
+  color: white;
+}
+
+/* Amount Input */
+.amount-input-container {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  font-weight: 700;
+  color: #95a5a6;
+  pointer-events: none;
+}
+
+.amount-input {
+  width: 100%;
+  padding: 20px 20px 20px 60px;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: left;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.amount-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.amount-input::placeholder {
+  color: #bdc3c7;
+}
+
+/* Person Selector */
+.person-selector {
+  margin-bottom: 24px;
+}
+
+.person-selector label {
+  display: block;
+  margin-bottom: 12px;
+  color: #34495e;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.person-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.person-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.person-chip:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.person-chip.selected {
+  background: var(--person-color);
+  border-color: var(--person-color);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.person-avatar-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.person-chip.selected .person-avatar-small {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Quick Add Button */
+.btn-quick-add {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  margin-bottom: 16px;
+}
+
+.btn-quick-add .btn-icon {
+  font-size: 24px;
+}
+
+.btn-quick-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+.btn-quick-add:active {
+  transform: translateY(0);
+}
+
+/* Quick Note */
+.quick-note {
+  text-align: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.quick-note small {
+  color: #7f8c8d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .quick-transaction-card {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .amount-input {
+    font-size: 28px;
+    padding: 16px 16px 16px 50px;
+  }
+
+  .currency-symbol {
+    font-size: 28px;
+    left: 16px;
+  }
+
+  .person-chips {
+    justify-content: center;
+  }
+
+  .type-chip {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .type-chip .chip-icon {
+    font-size: 20px;
+  }
+}
