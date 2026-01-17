@@ -1,13 +1,14 @@
 {
   "name": "money-habit",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
+"scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "build": "ng build",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test",
+  "build2": "ng build --base-href /money-habit/ --deploy-url /money-habit/ && rm -rf /Users/diego/personal-projects/manriquezstudio-site/public/money-habit && mkdir -p /Users/diego/personal-projects/manriquezstudio-site/public/money-habit && cp -R dist/money-habit/browser/* /Users/diego/personal-projects/manriquezstudio-site/public/money-habit/"
+},
   "private": true,
   "dependencies": {
     "@angular/common": "^19.2.0",
